@@ -83,19 +83,34 @@
 
 
     </div>
+<div id="campaignNotification" class="fixed top-4 right-4 bg-yellow-300 text-black border border-yellow-500 rounded-2xl p-4 shadow-lg z-50 animate-bounce hidden">
+  <div class="flex items-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/2995/2995468.png" alt="Campaign Icon" class="w-10 h-10 mr-3">
+    <div>
+      <p class="font-bold text-lg">🎉 Campaign Alert!</p>
+      <p id="campaignTitle" class="text-sm font-medium"></p>
+    </div>
+  </div>
+</div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const campaignTitle = "{{ optional($campaign)->title ?? 'No title available' }}";
+    const notification = document.getElementById('campaignNotification');
+    const titleElement = document.getElementById('campaignTitle');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                title: "⚠️ Warning!",
-                text: "{{$payment->description}}",
-                icon: "warning",
-                confirmButtonText: "OK, I Understand",
-                confirmButtonColor: "#d33",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            });
-        });
-    </script>
+    if (campaignTitle !== 'No title available') {
+      titleElement.textContent = campaignTitle;
+      notification.classList.remove('hidden');
+
+      // Hide after 5 seconds
+      setTimeout(() => {
+        notification.classList.add('hidden');
+      }, 5000);
+    }
+  });
+</script>
+
+<!-- Tailwind CSS CDN (if not included already) -->
+{{-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> --}}
 </body>
 </html>

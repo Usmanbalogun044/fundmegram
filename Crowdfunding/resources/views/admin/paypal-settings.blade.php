@@ -28,7 +28,7 @@
 			<div class="card shadow-custom border-0">
 				<div class="card-body p-lg-5">
 
-					 <form method="POST" action="{{route('set.paypal',['id'=>$data->id])}}" enctype="multipart/form-data">
+					 <form method="POST" action="{{route('paypal.set',['id'=>$data->id])}}" enctype="multipart/form-data">
              @csrf
 
 		        <div class="row mb-3">

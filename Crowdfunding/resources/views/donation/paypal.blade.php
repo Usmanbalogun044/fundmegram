@@ -65,11 +65,18 @@
                         <label for="amount" class="block text-gray-700 font-medium">Donation Amount ($)</label>
                         <input type="number" id="amount" name="amount" value="10" min="{{ $settings->min_donation_amount }}" max="{{ $settings->max_donation_amount }}" required class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
                     </div>
-                    <div class="form-group form-check">
+                    {{-- <div class="form-group form-check">
                         <input class="form-check-input" id="customControlInline" name="anonymous" type="checkbox" value="1">
                         <label class="form-check-label" for="customControlInline">{{ __('misc.anonymous_donation') }}</label>
-                      </div>
-
+                      </div> --}}
+  <div class="mb-4">
+                <label class="block text-gray-700 font-medium">Upload Payment Receipt</label>
+                <input type="file" name="bank_transfer" required class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200">
+            </div>
+            <div class="form-group form-check">
+                <input class="form-check-input" id="customControlInline" name="anonymous" type="checkbox" value="1">
+                <label class="form-check-label" for="customControlInline">{{ __('misc.anonymous_donation') }}</label>
+              </div>
             <!-- Submit Button -->
             <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300">
                 Submit Donation

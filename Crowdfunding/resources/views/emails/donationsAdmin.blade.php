@@ -8,7 +8,7 @@
     <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-2xl font-semibold text-gray-700">New Donation Received</h2>
         <p class="text-gray-600 mt-2">Hello Admin,</p>
-        <p class="text-gray-600">A new donation has been made for the campaign <strong class="text-gray-800">{{ $campaign->title }}</strong> on <strong>{{ $title_site }}</strong>.</p>
+        <p class="text-gray-600">A new donation has been made for the campaign <strong class="text-gray-800">{{ $campaign->title ??'no title available'}}</strong> on <strong>{{ $title_site }}</strong>.</p>
 
         <h3 class="mt-4 text-lg font-semibold text-gray-700">Donor Details:</h3>
         <ul class="mt-2 space-y-2">

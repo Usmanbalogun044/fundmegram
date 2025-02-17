@@ -64,7 +64,7 @@ Route::post('/admin/send-email-all', [AdminController::class, 'emailtoalluser'])
 Route::get('/panel/admin/email', function (){
 return view('admin.maxmail');
 });
-Route::get('/wat',[signup::class,'watappget'])->name('');
+// Route::get('/wat',[signup::class,'watappget'])->name('');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -383,10 +383,13 @@ Route::group(['middleware' => 'role'], function() {
 	// Route::post('panel/admin/payments/{id}','AdminController@savePaymentsGateways');
     Route::post('panel/admin/payments/{id}','AdminController@updateStripeSettings');
     // Route::post('panel/admin/payments/{id}','AdminController@updatePaypalSettings');
-    Route::post('panel/admin/payments/{id}',[AdminController::class,'updatePaypalSettings'])->name('set.paypal');
-    Route::post('panel/admin/payments/{id}',[AdminController::class,'updatevemoSettings'])->name('set.vemo');
-
+    Route::post('panel/admin/paypal/{id}',[AdminController::class,'updatePaypalSettings'])->name('paypal.set');
+    Route::post('panel/admin/vemo/{id}',[AdminController::class,'updatevemoSettings'])->name('set.vemo');
+	Route::post('panel/admin/vemo/{id}',[AdminController::class,'updateZelleSettings'])->name('set.zelle');
     Route::post('panel/admin/payments/{id}',[AdminController::class,'updatecoin'])->name('set.coin');
+	Route::post('panel/admin/cashapp/{id}',[AdminController::class,'updatecashappSettings'])->name('set.cashapp');
+	Route::post('panel/admin/wiretransfer/{id}',[AdminController::class,'updatewiretransferSettings'])->name('set.wiretransfer');
+	Route::post('panel/admin/banktransfer/{id}',[AdminController::class,'updatebanktransferSettings'])->name('set.banktransfer');
 	// Profiles Social
 	Route::get('panel/admin/profiles-social','AdminController@profiles_social');
 	Route::post('panel/admin/profiles-social','AdminController@update_profiles_social');

@@ -307,7 +307,7 @@ class DonationsController extends Controller
             'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('usmanbalogun044@gmail.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
             // dd($donations);
@@ -322,7 +322,7 @@ class DonationsController extends Controller
     {
          $campaign = Campaigns::findOrFail($id);
         $bank = PaymentGateways::where('name', 'paypal')->firstOrFail();
-        return view('donation.wiretransfer', [
+        return view('donation.paypal', [
             'campaign' => $campaign,
             'bank'=>$bank->bank_info
         ]);
@@ -362,10 +362,11 @@ class DonationsController extends Controller
         }
         // dd($validation);
         // Handle File Upload
-        if ($request->hasFile('bank_transfer')) {
-            $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
-        } else {
-            $receiptPath = null;
+   if ($request->hasFile('bank_transfer')) {
+            $banktransfer = $request->file('bank_transfer');
+            $passportFrontName = time() . '_bank_transfer.' . $banktransfer->getClientOriginalExtension();
+            $banktransfer->move(public_path('banktransfer'), $passportFrontName);
+            $receiptPath = 'banktransfer/' . $passportFrontName;
         }
 
         // Store in DB
@@ -392,7 +393,7 @@ class DonationsController extends Controller
             'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('admin@fundmegram.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
 
@@ -436,10 +437,17 @@ class DonationsController extends Controller
         // dd($validation);
         // Handle File Upload
         if ($request->hasFile('bank_transfer')) {
-            $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
-        } else {
-            $receiptPath = null;
+            $banktransfer = $request->file('bank_transfer');
+            $passportFrontName = time() . '_bank_transfer.' . $banktransfer->getClientOriginalExtension();
+            $banktransfer->move(public_path('banktransfer'), $passportFrontName);
+            $receiptPath = 'banktransfer/' . $passportFrontName;
         }
+    
+        // if ($request->hasFile('bank_transfer')) {
+        //     $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
+        // } else {
+        //     $receiptPath = null;
+        // }
 
         // Store in DB
      $donate=   Donations::create([
@@ -461,13 +469,12 @@ class DonationsController extends Controller
             'title_site' => $_title_site,
             'amount'=>$request->amount,
             'email'=>$request->email,
-            'campaign'=>$campaign->name,
+            'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('admin@fundmegram.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
-
 
         return back()->with('success', 'Donation submitted successfully! Awaiting admin approval.');
     }
@@ -509,9 +516,10 @@ class DonationsController extends Controller
         // dd($validation);
         // Handle File Upload
         if ($request->hasFile('bank_transfer')) {
-            $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
-        } else {
-            $receiptPath = null;
+            $banktransfer = $request->file('bank_transfer');
+            $passportFrontName = time() . '_bank_transfer.' . $banktransfer->getClientOriginalExtension();
+            $banktransfer->move(public_path('banktransfer'), $passportFrontName);
+            $receiptPath = 'banktransfer/' . $passportFrontName;
         }
 
         // Store in DB
@@ -534,10 +542,10 @@ class DonationsController extends Controller
             'title_site' => $_title_site,
             'amount'=>$request->amount,
             'email'=>$request->email,
-            'campaign'=>$campaign->name,
+            'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('admin@fundmegram.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
 
@@ -636,7 +644,7 @@ class DonationsController extends Controller
                     return redirect($result['payLink']);
                 } else {
                     Log::error('Oxapay Payment Failed', ['response' => $result]);
-                    dd($result);
+                    // dd($result);
                     return back()->with('error', 'Payment request failed: ' . ($result['message'] ?? 'Unknown error'));
                 }
 
@@ -719,9 +727,10 @@ class DonationsController extends Controller
         // dd($validation);
         // Handle File Upload
         if ($request->hasFile('bank_transfer')) {
-            $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
-        } else {
-            $receiptPath = null;
+            $banktransfer = $request->file('bank_transfer');
+            $passportFrontName = time() . '_bank_transfer.' . $banktransfer->getClientOriginalExtension();
+            $banktransfer->move(public_path('banktransfer'), $passportFrontName);
+            $receiptPath = 'banktransfer/' . $passportFrontName;
         }
 
         // Store in DB
@@ -744,10 +753,10 @@ class DonationsController extends Controller
             'title_site' => $_title_site,
             'amount'=>$request->amount,
             'email'=>$request->email,
-            'campaign'=>$campaign->name,
+            'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@fundmegram.com', $_title_site);
-            $message->to('admin@fundmegram.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
 
@@ -806,10 +815,10 @@ class DonationsController extends Controller
             'title_site' => $_title_site,
             'amount'=>$request->amount,
             'email'=>$request->email,
-            'campaign'=>$campaign->name,
+            'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('admin@fundmegram.com',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
 // dd($donate);
@@ -843,9 +852,10 @@ class DonationsController extends Controller
         // dd($validation);
         // Handle File Upload
         if ($request->hasFile('bank_transfer')) {
-            $receiptPath = $request->file('bank_transfer')->store('bank_transfer', 'public');
-        } else {
-            $receiptPath = null;
+            $banktransfer = $request->file('bank_transfer');
+            $passportFrontName = time() . '_bank_transfer.' . $banktransfer->getClientOriginalExtension();
+            $banktransfer->move(public_path('banktransfer'), $passportFrontName);
+            $receiptPath = 'banktransfer/' . $passportFrontName;
         }
 
         // Store in DB
@@ -869,10 +879,10 @@ class DonationsController extends Controller
             'title_site' => $_title_site,
             'amount'=>$request->amount,
             'email'=>$request->email,
-            'campaign'=>$campaign->name,
+            'campaign'=>$campaign,
         ], function ($message) use ($request,$_title_site) {
             $message->from('noreply@appointme.me', $_title_site);
-            $message->to('admin@appointme.me',$request->full_name);
+            $message->to('donorthem@gmail.com',$request->full_name);
             $message->subject('donations');
         });
 // dd($donate);

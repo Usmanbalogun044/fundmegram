@@ -964,7 +964,7 @@ class AdminController extends Controller
             'enabled' => $request->has('enabled') ? 1 : 0,
         ]);
 
-        return back()->with('success_message', 'Stripe settings updated successfully!');
+        return back()->with('success_message', 'wire settings updated successfully!');
     }
     public function updatevemoSettings(Request $request, $id)
     {
@@ -984,6 +984,62 @@ class AdminController extends Controller
 
         return back()->with('success_message', 'Stripe settings updated successfully!');
     }
+
+	 public function updateZelleSettings(Request $request, $id)
+    {
+        $data = PaymentGateways::findOrFail($id);
+        $request->validate([
+            'fee' => 'required|numeric|min:0',
+            'bank_info' => 'required|string',
+        ]);
+// dd()
+
+        // Update settings
+        $data->update([
+            'fee' => $request->fee,
+            'bank_info' => $request->bank_info,
+            'enabled' => $request->has('enabled') ? 1 : 0,
+        ]);
+
+        return back()->with('success_message', 'zelle settings updated successfully!');
+    }
+	public function updatecashappSettings(Request $request, $id)
+    {
+        $data = PaymentGateways::findOrFail($id);
+        $request->validate([
+            'fee' => 'required|numeric|min:0',
+            'bank_info' => 'required|string',
+        ]);
+// dd()
+
+        // Update settings
+        $data->update([
+            'fee' => $request->fee,
+            'bank_info' => $request->bank_info,
+            'enabled' => $request->has('enabled') ? 1 : 0,
+        ]);
+
+        return back()->with('success_message', 'cashapp settings updated successfully!');
+    }
+	public function updatebanktransferSettings(Request $request, $id)
+    {
+        $data = PaymentGateways::findOrFail($id);
+        $request->validate([
+            'fee' => 'required|numeric|min:0',
+            'bank_info' => 'required|string',
+        ]);
+// dd()
+
+        // Update settings
+        $data->update([
+            'fee' => $request->fee,
+            'bank_info' => $request->bank_info,
+            'enabled' => $request->has('enabled') ? 1 : 0,
+        ]);
+
+        return back()->with('success_message', 'banktransfer settings updated successfully!');
+    }
+	
     public function updatePaypalSettings(Request $request, $id)
     {
         $data = PaymentGateways::findOrFail($id);

@@ -140,8 +140,20 @@
 						                  <dt>{{ __('misc.country')  }}</dt>
 						                  <dd>{{$donation->country}}</dd>
 						                  <!-- ./end -->
+										  <dt>{{ __('misc.bank_transfer')}}</dt>
+						               <dd> 
+									   <div class="grid grid-cols-2 gap-4">
 
-						                  <!-- start -->
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
+                          <img src="{{ asset('public/'.$donation->bank_transfer) }}" 
+     alt="{{$donation->bank_transfer}}" 
+     class="w-20 h-14 mx-auto rounded-md object-cover">
+
+                            <a href="{{ asset('public/'.$donation->bank_transfer) }}" download class="text-blue-500 text-sm mt-2 inline-block">Download</a>
+                    </div>
+            </div></dd>
+									   
+
 						                  <dt>{{ __('misc.postal_code') }}</dt>
 						                  <dd>{{$donation->postal_code}}</dd>
 						                  <!-- ./end -->

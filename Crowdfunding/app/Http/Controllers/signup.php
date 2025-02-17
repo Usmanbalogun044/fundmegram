@@ -28,9 +28,9 @@ class Signup extends Controller
 
         // Return validation errors if validation fails
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         // Create the user with 'pending' status and email verification flag

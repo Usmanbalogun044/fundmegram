@@ -79,6 +79,9 @@
             <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300">
                 Submit Donation
             </button>
+             <a href="{{ url('/') }}" class="w-full block text-center bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-all duration-300">
+                Back to Home
+            </a>
         </form>
     </div>
 </body>

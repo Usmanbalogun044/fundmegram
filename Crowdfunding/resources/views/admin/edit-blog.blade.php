@@ -61,7 +61,7 @@
 		          <div class="col-sm-10">
                 <textarea class="form-control" name="content" rows="4" id="content">{{ $data->content }}</textarea>
 		          </div>
-		        </div>
+		    </div>
 
 						<div class="row mb-3">
 		          <div class="col-sm-10 offset-sm-2">
